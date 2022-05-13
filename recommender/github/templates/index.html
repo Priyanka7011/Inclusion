@@ -1,1 +1,149 @@
-<h1>Hello</h1>
+{%extends 'base.html'%}
+{%load static%}
+{%block headtag%}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Homepage</title>
+<style>
+
+.bg {
+  
+  
+  height: 80%;
+  /* min-height:100%; */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+}
+/* .centered {
+  position: absolute;
+  top: 50%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+} */
+body{
+    margin: 0;
+}
+* {
+  box-sizing: border-box;
+}
+
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+[class*="col-"] {
+  float: left;
+  padding: 15px;
+}
+
+html {
+  font-family: "Lucida Sans", sans-serif;
+}
+
+.menu  {
+ 
+  margin-left: auto;
+  margin-right: auto;
+  width:50%;
+  display: block;
+  z-index: 10;
+  
+}
+
+
+.menu li {
+  padding: 8px;
+  margin-bottom: 7px;
+  /* background-color: #33b5e5; */
+  color:black;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+
+.aside {
+  background-color: #33b5e5;
+  padding: 15px;
+  color: black;
+  text-align: center;
+  font-size: 14px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.image_vec img{
+  width:100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/*mobile phones: */
+[class*="col-"] {
+  width: 100%;
+}
+
+@media only screen and (min-width: 600px) {
+  /*tablets: */
+ 
+}
+@media only screen and (min-width: 768px) {
+ 
+
+ 
+}
+
+@media only screen and (max-width: 768px){
+    
+  .bg{
+    flex-direction: column;
+  }
+  .menu{
+    width:100%;
+    text-align:center;
+    padding-bottom:100px;
+  }
+  .menu h1{
+    font-size:52px !important;
+  }
+}
+</style>
+
+{%endblock%}
+
+
+
+
+{%block content%}
+
+<div>
+ 
+  
+
+  <div >
+    <div class="bg">
+      <div class="col-sm-5">
+        <div class="menu">
+          <h1 style='font-weight: bold;font-size: 62px;'>OpenSource</h1>
+        <h1 style='font-weight: bold;font-size: 62px;'>Buddy</h1>
+        <p style='font-size: 16px;font-weight:600'>Get personalised recommendation</p>
+        <p style='font-size: 16px;font-weight:600'>for all your open source needs </p>
+        
+        </div>
+      </div>
+      <div  class='image_vec col-sm-12'>
+        <img src="{%static 'images/bg.png'%}">
+      </div>
+    </div>
+    
+    
+  </div>
+
+</div>
+
+
+{%endblock%}
