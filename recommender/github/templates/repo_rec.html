@@ -1,0 +1,199 @@
+{%extends 'base.html'%}
+{%load static%}
+{%block headtag%}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<title>Homepage</title>
+<style>
+    .row-section{
+        display: flex;
+        justify-content: center;
+        
+        flex-wrap: wrap;
+        padding-top:20px
+    }
+    .card{
+        
+        background-color: #B4C3E4;
+        padding:20px;
+        margin-bottom:20px;
+        border-radius:10px;
+        box-shadow: 10px 10px 18px -10px rgba(0,0,0,0.75);
+        width:31%;
+        margin-left:20px;
+        display: flex;
+        flex-direction: column;
+       
+
+    }
+    .card-title{
+        color:#3d5a80;
+        font-size:17px;
+        font-weight: bold;
+    }
+    .card-subtitle{
+        color:white;
+        font-size: 14px;
+    }
+    .card-text{
+        font-size:12px;
+        
+    }
+    .icon{
+        font-size:16px;
+        
+        color:#ee6c4d
+    }
+    .icon-text{
+        font-style: normal;
+        color:#293241;
+        margin-right:10px;
+        font-size:12px;
+    }
+    .dropdown{
+        margin-right:20px;
+        padding-bottom: 10px;
+        
+    }
+    .dropdown .btn{
+        width:180px !important;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color:#293241;
+        border:none
+    }
+    .dropdown .btn-primary{
+        background-color: #cee5f7 !important;
+    }
+    .dropdown .dropdown-menu{
+        width: 180px;
+    }
+
+    i{
+      font-style: normal;
+    }
+    .flexible{
+      flex-grow: 1;
+    }
+    @media screen and (max-width:877px) {
+      
+      
+      .dropdown{
+          margin-bottom:10px;
+          margin-bottom: 10px;
+      }
+      .card{
+         width:45%;
+      }
+  }
+    @media screen and (max-width:508px) {
+      
+        .row-section{
+          align-items: center;
+            flex-direction: column;
+        }
+        .dropdown{
+            margin-bottom:10px !important;
+           
+        }
+        .card{
+          width:90%;
+          margin-left: 0px !important;
+        }
+    }
+    .outer{
+      
+      display: flex;
+      
+      flex-wrap: wrap;
+    }
+    .inner{
+      width:45%;
+      flex-direction: row;
+      display: flex;
+    }
+</style>
+{%endblock%}
+
+{%block content%}
+<h3 style='text-align: center;font-family:Poppins;'>Project repository recommendation</h3>
+<div class='row-section'>
+  
+    <!--<div class="dropdown">
+        <select id='sorting' class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Sort--
+        <span class="caret"></span>
+        
+          <option>Stars</option>
+          <option>Open issues</option>
+          <option>Views</option>
+          <option>Forks</option>
+        
+      </select>
+        
+      </div>-->
+      
+</div>
+
+
+  
+    <div class='row-section card-deck'>
+        
+        
+          {% for repo in repo_list %}
+          <div class="card" >
+            <div class="card-body">
+              <h5 class="card-title"><a href={{repo.2}}>{{ repo.0 }}</a></h5>
+              <h6 class="card-subtitle mb-2 text-muted">By {{repo.1}}</h6>
+              <h6 style='font-size:12px;' class="card-subtitle mb-2 text-muted">created at {{repo.4}}</h6>
+              <p class="card-text">{{repo.11}}</p>
+              <div>
+                  <i class='fa fa-star icon'></i> <i class='icon-text'>{{repo.5}}stars</i>
+                  <i class='fa fa-eye icon'> </i> <i class='icon-text'>{{repo.6}} views</i>
+                  <i class='fa fa-code-fork icon'> </i> <i class='icon-text'>{{repo.7}} forks</i>
+                  <i class='fa fa-bug icon'></i> <i class='icon-text'>{{repo.8}} open issues</i>
+              </div>
+              
+              <div style="display: flex;flex-direction: row;margin-top:8px">
+                  <p style='margin-right:10px;color:#E0FBFC;font-size:12px;'>languages used: </p>
+                  <p style='font-size:12px;'>{{repo.9}}</p>
+              </div>
+              <div style="display: flex;flex-direction: row">
+                <p style='margin-right:10px;color:#E0FBFC;font-size:12px;'>Topics: </p>
+                <p style='font-size:12px;'>{{repo.10}}</p>
+            </div>
+           
+              <a href={{repo.3}} class="card-link">visit website</a>
+             
+            </div>
+        </div>
+
+        {%endfor%}
+
+        
+
+        
+        
+    </div>
+    
+    
+  
+    <script>
+      $("#sorting").on('change',function(){
+        alert("hello")
+        var sortid=$("#sorting").val();
+        var repo_list=$("#repos").html();
+
+        console.log(repo_list)
+
+        
+        $.ajax({
+          type:"POST",
+          url:'/repo',
+          data:{'sortid':sortid, 'csrfmiddlewaretoken': "{{csrf_token}}",'repo_list':repo_list}
+        }).done(function(data){
+          $("#repo").html(data.repo_list)
+        });
+      });
+    </script>
+
+{%endblock%}
