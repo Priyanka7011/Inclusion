@@ -33,3 +33,13 @@ def fit_repos(keywords):
   #cosine_sim = cosine_similarity(count_matrix) 
   #return cosine_sim
   return dictionary,tfidf,index,lsi
+
+def get_name_from_index(index):
+		return df[df['id'] == index]["full_name"].values[0]
+
+def get_index_from_owner(project_desc):
+  #print(project_desc)
+  #print(df.head())
+  #print(df.loc(0)['id'])
+  #cv=CountVectorizer
+  return df[df.topics == project_desc]['id'].values[0]
