@@ -14,6 +14,7 @@ h3.headertekst {
   text-align: center;
   font-weight: bold;
   padding-bottom:20px;
+  
 }
 #feedback-page{
 	text-align:center;
@@ -23,20 +24,25 @@ h3.headertekst {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	height:90vh;
+	
 	
 }
 
 #form-div {
-	background-color:rgba(109, 106, 106, 0.185);
+	background-color:white;
 	padding-left:35px;
 	padding-right:35px;
-	box-shadow: 10px 10px 18px -10px rgba(0,0,0,0.75);
+	box-shadow: 10px 10px 24px 0px rgba(0,0,0,0.75);
 	padding-bottom:40px;
 	width:450px;
+	border-radius: 10px;
 	
 
 }
-
+h4{
+	font-size:12px !important;
+}
 .feedback-input {
 	color:#3c3c3c;
 	font-family: Helvetica, Arial, sans-serif;
@@ -67,6 +73,39 @@ h3.headertekst {
 .focused{
 	color:#30aed6;
 	border:#30aed6 solid 3px;
+}
+
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+	background-color: rgb(108, 122, 165) !important ;
+}
+
+.select2-container--default .select2-results__option[aria-selected=true] {
+    background-color: rgb(185, 197, 235) !important;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    color: white !important;
+    
+}
+
+.select2-container--default .select2-selection--multiple {
+    background-color: white;
+    border: 1px solid rgb(205, 203, 203) !important;
+    border-radius: 4px;
+    cursor: text;
+}
+
+textarea{
+	border: 1px solid rgb(205, 203, 203) !important;
+    border-radius: 4px !important;
+}
+.select2-container--default .select2-selection--multiple .select2-selection__choice{
+	background-color: #76d1f2 !important;
+    border: none !important;
+    border-radius: 4px !important;
+	color:white !important;
+	font-size:12px !important;
 }
 
 /* Icons ---------------------------------- */
@@ -125,8 +164,9 @@ input:focus, textarea:focus {
 	width: 100%;
 	border:none;
 	cursor:pointer;
-	background-color: #3498db;
-	color:black;
+	background: rgb(40,62,130);
+	background: linear-gradient(90deg, rgba(40,62,130,1) 0%, rgba(43,182,232,1) 100%);
+	color:white;
 	font-size:16px;
 	padding-top:10px;
 	padding-bottom:10px;
@@ -242,7 +282,7 @@ h4{
 					  </p>
 					  <input type="hidden" value="" class="data" name="data"/>
 					  <div class="submit">
-						<input type="submit" value="SEND" id="button-blue"/>
+						<input type="submit" value="Submit" id="button-blue"/>
 						<div class="ease"></div>
 					  </div>
 					  

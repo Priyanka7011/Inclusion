@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout
 from .models import *
+import pandas as pd
 
 # Create your views here.
 def index(request):
@@ -26,27 +27,27 @@ def repo_rec(request):
 
     if request.method == "POST":
         print("hello")
-        data = request.POST.get("data")
-        desc = request.POST.get("desc")
+    #     data = request.POST.get("data")
+    #     desc = request.POST.get("desc")
 
-        for word in data:
-            desc += word
+    #     for word in data:
+    #         desc += word
 
-        print(desc)
+    #     print(desc)
 
-        df = pd.DataFrame((list(GithubRepos.objects.all().values())))
-        print(df.head())
-        dictionary, tfidf, index, lsi = fit_repos(df["content"])
-        # print(cosine_sim)
-        repo_list = recommendations(dictionary, tfidf, index, lsi, desc)
-        # print(repo_list[0][9])
+    #     df = pd.DataFrame((list(GithubRepos.objects.all().values())))
+    #     print(df.head())
+    #     dictionary, tfidf, index, lsi = fit_repos(df["content"])
+    #     # print(cosine_sim)
+    #     repo_list = recommendations(dictionary, tfidf, index, lsi, desc)
+    #     # print(repo_list[0][9])
 
-        context = {"repo_list": repo_list}
+    #     context = {"repo_list": repo_list}
 
-        return render(request, "repo_rec.html", context)
+    #     return render(request, "repo_rec.html", context)
 
-    # list_repo=model.recommendations("sample code for several design patterns in PHP 8 ['code-examples', 'design-pattern', 'design-patterns', 'designpatternsphp', 'hacktoberfest', 'modern-php', 'oop', 'php', 'php8', 'phpunit'] dict_keys(['PHP', 'Python', 'Makefile', 'Dockerfile'])")
-    # print(list_repo)
+    # # list_repo=model.recommendations("sample code for several design patterns in PHP 8 ['code-examples', 'design-pattern', 'design-patterns', 'designpatternsphp', 'hacktoberfest', 'modern-php', 'oop', 'php', 'php8', 'phpunit'] dict_keys(['PHP', 'Python', 'Makefile', 'Dockerfile'])")
+    # # print(list_repo)
 
     return render(request, "repo_rec.html")
 

@@ -10,6 +10,8 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('social-auth/', include('social_django.urls', namespace='social')),
     path('logout',views.logout_view,name='logout'),
+    path('repo/<str:sortid>',views.repo_rec,name='repo_rec'),
+    path('repo',views.repo_rec,name='repo_rec'),
 
 
     
