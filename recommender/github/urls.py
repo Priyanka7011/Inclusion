@@ -11,4 +11,8 @@ urlpatterns = [
     path('social-auth/', include('social_django.urls', namespace='social')),
     path('logout',views.logout_view,name='logout'),
 
+
+    
+    path("form", views.form_res, name="form_res"),
+    path("contriform", views.form_contributors_res, name="form_contributors_res"),
 ]
