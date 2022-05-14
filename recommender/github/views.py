@@ -101,54 +101,69 @@ def form_res(request):
     return render(request, "form.html", context)
 
 
-def org_recs(request):
-    if(request.user.is_authenticated):
-        owner=request.user.username
-        print(owner)
-        repos=requests.get('https://api.github.com/search/repositories?q=user:'+owner+'+sort:stars').json()
-        print(repos)
-        repo_det=" "
-        for repo in repos['items']:
-            repo_name = str(repo['name'])
-            language = str(repo['language'] )
-            topic=str(repo['topics'])
-            #repo_info = requests.get('https://api.github.com/repos/'+owner+'/'+repo_name)
-            
-            desc=str(repo['description'])
-            repo_det+=repo_name+" "+language+" "+desc+" "+topic+" "
+def user_rec(request):
+    if request.method == "POST":
+        print("hello")
+        data = request.POST.get("data")
+        desc = request.POST.get("desc")
 
-        #print(repo_det)
-            
-        df=pd.DataFrame((list(GithubUsers.objects.all().values())))
+        for word in data:
+            desc += word
+
+        print(desc)
+
+        df = pd.DataFrame((list(GithubUsers.objects.all().values())))
         print(df.head())
-        dictionary,tfidf,index,lsi=fit(df['all_repos'])
-        #print(cosine_sim)
-        user_orgs=orgs_recs_user(dictionary,tfidf,index,lsi,desc)
+        dictionary, tfidf, index, lsi = fit(df["all_repos"])
+        # print(cosine_sim)
+        user_list, user_expert = user_recs(dictionary, tfidf, index, lsi, desc)
+        # print(user_list[0])
+
+        print(user_expert[0])
+
+        context = {"user_list": user_list}
+
+    return render(request, "user_rec.html", context)
+
+
+def org_recs(request):
+    if request.user.is_authenticated:
+        owner = request.user.username
+        print(owner)
+        repos = requests.get(
+            "https://api.github.com/search/repositories?q=user:" + owner + "+sort:stars"
+        ).json()
+        print(repos)
+        repo_det = " "
+        for repo in repos["items"]:
+            repo_name = str(repo["name"])
+            language = str(repo["language"])
+            topic = str(repo["topics"])
+            # repo_info = requests.get('https://api.github.com/repos/'+owner+'/'+repo_name)
+
+            desc = str(repo["description"])
+            repo_det += repo_name + " " + language + " " + desc + " " + topic + " "
+
+        # print(repo_det)
+
+        df = pd.DataFrame((list(GithubUsers.objects.all().values())))
+        print(df.head())
+        dictionary, tfidf, index, lsi = fit(df["all_repos"])
+        # print(cosine_sim)
+        user_orgs = orgs_recs_user(dictionary, tfidf, index, lsi, desc)
         print(user_orgs)
 
-        org_desc=["a"]*len(user_orgs)
+        org_desc = ["a"] * len(user_orgs)
 
         for i in range(len(user_orgs)):
-            org=user_orgs[i]
-            org_url="https://github.com/"+org
-            org_det=requests.get("https://api.github.com/orgs/"+org).json()
-            org_desc[i]=([org,org_det['avatar_url'],org_det['public_repos'],org_url])
+            org = user_orgs[i]
+            org_url = "https://github.com/" + org
+            org_det = requests.get("https://api.github.com/orgs/" + org).json()
+            org_desc[i] = [org, org_det["avatar_url"], org_det["public_repos"], org_url]
 
         print(org_desc)
 
-        
-        
+        context = {"user_orgs": org_desc}
 
-
-
-        context={
-            'user_orgs':org_desc
-        }
-
-
-
-        
-
-
-        return render(request,'org_rec.html',context)
-    return render(request,'org_rec.html')
+        return render(request, "org_rec.html", context)
+    return render(request, "org_rec.html")
