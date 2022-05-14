@@ -25,3 +25,31 @@ def fit(keywords):
   index = gensim.similarities.MatrixSimilarity(lsi[corpus_tfidf])
   
   return dictionary,tfidf,index,lsi
+
+
+
+def orgs_recs_user(dictionary,tfidf,index,lsi,desc):
+  new_doc=gensim.parsing.preprocessing.preprocess_string(desc)
+  new_vec = dictionary.doc2bow(new_doc)
+  vec_bow_tfidf = tfidf[new_vec]
+  vec_lsi = lsi[vec_bow_tfidf]
+
+  sims = index[vec_lsi]
+  list_user=[]
+
+  s=sorted(enumerate(sims), key=lambda item: -item[1])[:100]
+  stop_words=['[',']',',',', ','[]','([','([])','])',', ']
+  for i in range(0,100,10):
+    tx=str(df["orgs"].iloc[s[i][0]])
+    txt=tx.split("'")
+    for k in txt:
+        if k not in stop_words:
+            list_user.append(k)
+
+        
+
+  list_user=np.array(list_user)
+  list_user=np.unique(list_user)
+  list_user
+
+  return list_user
