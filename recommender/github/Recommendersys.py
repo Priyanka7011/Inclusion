@@ -45,7 +45,24 @@ def get_index_from_owner(project_desc):
   return df[df.topics == project_desc]['id'].values[0]
 
 def recommendations(dictionary,tfidf,index,lsi,desc):
-  contributor_index = get_index_from_owner(desc)
+  print(desc)
+  new_doc=gensim.parsing.preprocessing.preprocess_string(desc)
+  new_vec = dictionary.doc2bow(new_doc)
+  vec_bow_tfidf = tfidf[new_vec]
+  vec_lsi = lsi[vec_bow_tfidf]
+
+  sims = index[vec_lsi]
+  repo_det=[]
+
+  for s in sorted(enumerate(sims), key=lambda item: -item[1])[:10]:
+    print(df["full_name"].iloc[s[0]],s[1])
+    repo_det.append([df["full_name"].iloc[s[0]],df["owner"].iloc[s[0]],df["github_url"].iloc[s[0]],df["homepage"].iloc[s[0]],
+    df["created_at"].iloc[s[0]],df["fork_counts"].iloc[s[0]],df["open_issues"].iloc[s[0]],df["stargazers_count"].iloc[s[0]],
+    df["watchers"].iloc[s[0]],df["languages"].iloc[s[0]],df["topics"].iloc[s[0]],df["description"].iloc[s[0]]])
+    #print(df["full_name"].iloc[s[0]] , {str(s[1])})
+
+  return repo_det
+  """contributor_index = get_index_from_owner(desc)
   #print(desc)
   print(contributor_index)
   #print(df.head())
@@ -68,4 +85,4 @@ def recommendations(dictionary,tfidf,index,lsi,desc):
       if i>15:
         break
 
-  return repo_list
+  return repo_list"""
