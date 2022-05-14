@@ -32,22 +32,27 @@ For this we created user profile based on their activity and work done in past. 
 1. Clone the repo to your local system
 
     ```git clone https://github.com/Priyanka7011/Inclusion.git ```
-2. Create a virtual environment. You can use this [link](https://docs.python.org/3/library/venv.html) for reference.
+
+2. Go inside Recommender folder:
+
+    ```cd Inclusion\recommender```
+
+3. Create a virtual environment. You can use this [link](https://docs.python.org/3/library/venv.html) for reference.
 
     ``` python -m venv env ```
-3. Activate your virtual environment using : 
+4. Activate your virtual environment using : 
     
-    ```env/Scripts/activate``` 
+    ```source env/Scripts/activate``` 
     
     Here venv is the name of virtual environment.
 
-4. Install all the requirements required to run the project : 
+5. Install all the requirements required to run the project : 
     
     ```pip install -r requirements.txt```
-5. Go inside Recommender folder:
-       ```cd Inclusion\recommender```
+
 6.  Run the django server
-        ```python manage.py runserver```
+    
+    ```python manage.py runserver```
     
 ## Screenshots
 
