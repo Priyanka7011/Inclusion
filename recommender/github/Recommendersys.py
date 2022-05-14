@@ -43,3 +43,29 @@ def get_index_from_owner(project_desc):
   #print(df.loc(0)['id'])
   #cv=CountVectorizer
   return df[df.topics == project_desc]['id'].values[0]
+
+def recommendations(dictionary,tfidf,index,lsi,desc):
+  contributor_index = get_index_from_owner(desc)
+  #print(desc)
+  print(contributor_index)
+  #print(df.head())
+
+  similar_project =  list(enumerate(cosine_sim[contributor_index]))
+
+  sorted_similar_project = sorted(similar_project, key=lambda x:x[1], reverse=True)
+
+  # top 15
+
+  #print("\nPROJECT DESCRIPTION:\n" , df[df['index'] == sorted_similar_project[0][0]]["combined_features"].values[0] , "\n")
+  #print("RECOMMENDED REPOSITORIES:-\n")
+
+  i=0
+  repo_list=[]
+  for element in sorted_similar_project:
+      name = get_name_from_index(element[0])
+      repo_list.append(df[df['id'] == element[0]].values[0])
+      i=i+1
+      if i>15:
+        break
+
+  return repo_list
