@@ -99,3 +99,56 @@ def form_res(request):
         "lang_token": lang_token,
     }
     return render(request, "form.html", context)
+
+
+def org_recs(request):
+    if(request.user.is_authenticated):
+        owner=request.user.username
+        print(owner)
+        repos=requests.get('https://api.github.com/search/repositories?q=user:'+owner+'+sort:stars').json()
+        print(repos)
+        repo_det=" "
+        for repo in repos['items']:
+            repo_name = str(repo['name'])
+            language = str(repo['language'] )
+            topic=str(repo['topics'])
+            #repo_info = requests.get('https://api.github.com/repos/'+owner+'/'+repo_name)
+            
+            desc=str(repo['description'])
+            repo_det+=repo_name+" "+language+" "+desc+" "+topic+" "
+
+        #print(repo_det)
+            
+        df=pd.DataFrame((list(GithubUsers.objects.all().values())))
+        print(df.head())
+        dictionary,tfidf,index,lsi=fit(df['all_repos'])
+        #print(cosine_sim)
+        user_orgs=orgs_recs_user(dictionary,tfidf,index,lsi,desc)
+        print(user_orgs)
+
+        org_desc=["a"]*len(user_orgs)
+
+        for i in range(len(user_orgs)):
+            org=user_orgs[i]
+            org_url="https://github.com/"+org
+            org_det=requests.get("https://api.github.com/orgs/"+org).json()
+            org_desc[i]=([org,org_det['avatar_url'],org_det['public_repos'],org_url])
+
+        print(org_desc)
+
+        
+        
+
+
+
+        context={
+            'user_orgs':org_desc
+        }
+
+
+
+        
+
+
+        return render(request,'org_rec.html',context)
+    return render(request,'org_rec.html')
