@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'github'
+    'github',
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -71,7 +72,21 @@ TEMPLATES = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = [
 
+
+    'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.github.GithubOAuth2',
+    'social_core.backends.linkedin.LinkedinOAuth2',
+
+
+    'django.contrib.auth.backends.ModelBackend',
+
+
+]
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 WSGI_APPLICATION = 'recommender.wsgi.application'
 
@@ -123,6 +138,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+SOCIAL_AUTH_GITHUB_KEY = '657470460cd22929d8eb'     # github id     
+SOCIAL_AUTH_GITHUB_SECRET = '8e92ff58d816c6fe73ea9018cfed99a928ab0b99'  # github secret key
 
 STATIC_ROOT= os.path.join(BASE_DIR,'static')
 STATIC_URL = "/static/"
