@@ -5,14 +5,12 @@ from django.urls import include, path
 from django.views.generic.base import TemplateView
 
 urlpatterns = [
-    path('',views.index,name='homepage'),
-    path('', TemplateView.as_view(template_name = 'index.html'), name = 'index'),
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('social-auth/', include('social_django.urls', namespace='social')),
-    path('logout',views.logout_view,name='logout'),
-
-
-    
+    path("", views.index, name="homepage"),
+    path("", TemplateView.as_view(template_name="index.html"), name="index"),
+    path("accounts/", include("django.contrib.auth.urls")),
+    path("social-auth/", include("social_django.urls", namespace="social")),
+    path("logout", views.logout_view, name="logout"),
     path("form", views.form_res, name="form_res"),
     path("contriform", views.form_contributors_res, name="form_contributors_res"),
+    path("orgs", views.org_recs, name="org_recs"),
 ]
