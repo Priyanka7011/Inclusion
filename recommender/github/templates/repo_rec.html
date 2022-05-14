@@ -9,13 +9,13 @@
         justify-content: center;
         
         flex-wrap: wrap;
-        padding-top:20px
+        padding-top:40px
     }
     .card{
         
-        background-color: #B4C3E4;
-        padding:20px;
-        margin-bottom:20px;
+        background-color: #edf0f7;
+       
+        margin-bottom:60px;
         border-radius:10px;
         box-shadow: 10px 10px 18px -10px rgba(0,0,0,0.75);
         width:31%;
@@ -26,9 +26,15 @@
 
     }
     .card-title{
-        color:#3d5a80;
+        color:#f49f1c !important;
         font-size:17px;
         font-weight: bold;
+        padding:10px;
+        background-color:  #919bd8;
+        border-radius:10px 10px 0 0;
+    }
+    .card-body{
+      padding:10px;
     }
     .card-subtitle{
         color:white;
@@ -41,13 +47,15 @@
     .icon{
         font-size:16px;
         
-        color:#ee6c4d
+        color:hwb(24deg 32% 4%);
     }
     .icon-text{
         font-style: normal;
-        color:#293241;
+        color:hwb(24deg 32% 4%);
         margin-right:10px;
         font-size:12px;
+        font-weight: bold;
+        
     }
     .dropdown{
         margin-right:20px;
@@ -101,6 +109,9 @@
           margin-left: 0px !important;
         }
     }
+    a{
+      color:#293241 !important;
+    }
     .outer{
       
       display: flex;
@@ -141,24 +152,28 @@
         
           {% for repo in repo_list %}
           <div class="card" >
-            <div class="card-body">
-              <h5 class="card-title"><a href={{repo.2}}>{{ repo.0 }}</a></h5>
+            <div class="card-title">
+              <a href={{repo.2}}>{{ repo.0 }}</a>
               <h6 class="card-subtitle mb-2 text-muted">By {{repo.1}}</h6>
               <h6 style='font-size:12px;' class="card-subtitle mb-2 text-muted">created at {{repo.4}}</h6>
-              <p class="card-text">{{repo.11}}</p>
+            </div>
+            <div class="card-body">
               <div>
-                  <i class='fa fa-star icon'></i> <i class='icon-text'>{{repo.5}}stars</i>
-                  <i class='fa fa-eye icon'> </i> <i class='icon-text'>{{repo.6}} views</i>
-                  <i class='fa fa-code-fork icon'> </i> <i class='icon-text'>{{repo.7}} forks</i>
-                  <i class='fa fa-bug icon'></i> <i class='icon-text'>{{repo.8}} open issues</i>
-              </div>
+                <i class='fa fa-star icon'></i> <i class='icon-text'>{{repo.5}} stars</i>
+                <i class='fa fa-eye icon'> </i> <i class='icon-text'>{{repo.6}} views</i>
+                <i class='fa fa-code-fork icon'> </i> <i class='icon-text'>{{repo.7}} forks</i>
+                <i class='fa fa-bug icon'></i> <i class='icon-text'>{{repo.8}} issues</i>
+            </div>
+             
+              <p class="card-text">{{repo.11}}</p>
+              
               
               <div style="display: flex;flex-direction: row;margin-top:8px">
-                  <p style='margin-right:10px;color:#E0FBFC;font-size:12px;'>languages used: </p>
+                  <p style='margin-right:10px;color:#5e646a;font-size:12px;'>languages: </p>
                   <p style='font-size:12px;'>{{repo.9}}</p>
               </div>
               <div style="display: flex;flex-direction: row">
-                <p style='margin-right:10px;color:#E0FBFC;font-size:12px;'>Topics: </p>
+                <p style='margin-right:10px;color:#5e646a;font-size:12px;'>Topics: </p>
                 <p style='font-size:12px;'>{{repo.10}}</p>
             </div>
            
