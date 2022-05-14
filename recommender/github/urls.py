@@ -12,9 +12,9 @@ urlpatterns = [
     path('logout',views.logout_view,name='logout'),
     path('repo/<str:sortid>',views.repo_rec,name='repo_rec'),
     path('repo',views.repo_rec,name='repo_rec'),
-
-
     
     path("form", views.form_res, name="form_res"),
     path("contriform", views.form_contributors_res, name="form_contributors_res"),
+    path("user", views.user_rec, name="user_rec"),
+    path("orgs", views.org_recs, name="org_recs"),
 ]
